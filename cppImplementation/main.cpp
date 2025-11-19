@@ -3,8 +3,8 @@
 #include <vector>
 #include <fstream>
 #include <map>
-#include "countAudi.h"
-#include "revenueBMW.h"
+#include "countCars.h"
+#include "revenueCars.h"
 #include "distribution.h"
 
 using namespace std;
@@ -41,16 +41,16 @@ int main() {
         data.push_back(row);
     }
 
-    GenerateAudiCount generateAudiCount(data, header_map);
-    revenueBMW revenueBMW(data, header_map);
+    GenerateCarsCount generateCarsCount(data, header_map);
+    revenueCars revenueCars(data, header_map);
     Distribution distribution(data, header_map);
 
-    int revenueBMW2025 = revenueBMW.calculate_revenue_bmw(2025, "BMW");
-    int countAudi = generateAudiCount.calculate_revenue_audi(2025, "Audi", "Germany");
+    int revenueBMW2025 = revenueCars.calculate_revenue_cars(2025, "BMW");
+    int countAudi = generateCarsCount.calculate_car_count(2025, "Audi", "China");
     vector<pair<string, int>> distributionEurope = distribution.calculate_distribution("Europe");
     
 
-    cout<<"Count of Audi in 2025 in Germany: "<<countAudi<<"\n";
+    cout<<"Count of Audi in 2025 in China: "<<countAudi<<"\n";
     cout<<"Revenue of BMW in 2025: "<<revenueBMW2025<<"\n";
     cout<<"Distribution of Revenue in Europe: \n";
 
