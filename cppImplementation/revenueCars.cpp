@@ -4,20 +4,16 @@
 #include <map>
 #include "revenueCars.h"
 #include <thread>
-
+#include "CarData.h"
 using namespace std;
 
-revenueCars::revenueCars(vector<vector<string> > data, map<string, int> header_map){
+revenueCars::revenueCars(vector<CarData> data, map<string, int> header_map){
     this->data = data;
     this->header_map = header_map;
 }
 
 int revenueCars::calculate_revenue_cars(int year, string carBrand){
     int total_revenue = 0;
-    int manufacturer_idx = this->header_map["manufacturer"];
-    int sale_date_idx = this->header_map["sale_date"];
-    int sale_price_idx = this->header_map["sale_price_usd"];
-
 
     vector<thread> workers;
     int thread_count = thread::hardware_concurrency();
@@ -29,11 +25,11 @@ int revenueCars::calculate_revenue_cars(int year, string carBrand){
     auto worker = [&](int thread_id, int start, int end){
         for(int i = start; i < end; i++){
             auto data_row = data[i];
-            string sale_date = data_row[sale_date_idx];
+            string sale_date = data_row.sale_date;
             string sale_year_str = sale_date.substr(0, 4);
             int sale_year = stoi(sale_year_str);
-            if(data_row[manufacturer_idx] == carBrand && sale_year == year){
-                local_revenue[thread_id] += stoi(data_row[sale_price_idx]);
+            if(data_row.manufacturer == carBrand && sale_year == year){
+                local_revenue[thread_id] += stoi(data_row.sale_price_usd);
             }
         }
     };

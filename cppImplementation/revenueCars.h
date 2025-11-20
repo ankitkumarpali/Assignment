@@ -3,15 +3,15 @@
 #include <vector>
 #include <string>
 #include <map>
-
+#include "CarData.h"
 using namespace std;
 
 class revenueCars{
     private:
-        vector<vector<string> > data;
+        vector<CarData> data;
         map<string, int> header_map;
     public:
-        revenueCars(vector<vector<string> > data, map<string, int> header_map);
+        revenueCars(vector<CarData> data, map<string, int> header_map);
         int calculate_revenue_cars(int year, string carBrand);
 };
 #endif
