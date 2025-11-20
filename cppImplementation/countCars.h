@@ -6,13 +6,14 @@
 #include <sstream>
 #include <fstream>
 #include <map>
+#include "CarData.h"
 using namespace std;
 class GenerateCarsCount{
     private:
-        vector<vector<string> > data;
+        vector<CarData> data;
         map<string, int> header_map;
     public:
-        GenerateCarsCount(vector<vector<string> > data, map<string, int> header_map);
+        GenerateCarsCount(vector<CarData> data, map<string, int> header_map);
         int calculate_car_count(int year, string carBrand, string country);
 };
 #endif

@@ -4,15 +4,15 @@
 #include <string>
 #include <map>
 #include <set>
-
+#include "CarData.h"
 using namespace std;
 
 class Distribution{
     private:
-        vector<vector<string> > data;
+        vector<CarData> data;
         map<string, int> header_map;
     public:
-        Distribution(vector<vector<string> > data, map<string, int> header_map);
+        Distribution(vector<CarData> data, map<string, int> header_map);
         set<string> get_country_list(string region);
         vector<pair<string, int>> calculate_distribution(string region);
 

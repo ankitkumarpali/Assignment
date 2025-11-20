@@ -5,10 +5,10 @@
 #include <set>
 #include <algorithm>
 #include <thread>
-
+#include "CarData.h"
 using namespace std;
 
-Distribution::Distribution(vector<vector<string> > data, map<string, int> header_map){
+Distribution::Distribution(vector<CarData> data, map<string, int> header_map){
     this->data = data;
     this->header_map = header_map;
 }
@@ -16,8 +16,8 @@ Distribution::Distribution(vector<vector<string> > data, map<string, int> header
 set<string> Distribution::get_country_list(string region){
     set<string> country_set;
     for(auto data_row : data){
-        if(data_row[header_map["region"]] == region){
-            country_set.insert(data_row[header_map["country"]]);
+        if(data_row.region == region){
+            country_set.insert(data_row.country);
         }
     }
     return country_set;
@@ -36,8 +36,8 @@ vector<pair<string, int>> Distribution::calculate_distribution(string region){
     auto worker = [&](int thread_id, int start, int end){
         for(int i = start; i < end; i++){
             auto data_row = data[i];
-            if(data_row[header_map["region"]] == region){
-                local_distribution[thread_id][data_row[header_map["country"]]] += stoi(data_row[header_map["sale_price_usd"]]);
+            if(data_row.region == region){
+                local_distribution[thread_id][data_row.country] += stoi(data_row.sale_price_usd);
             }
         }
     };
