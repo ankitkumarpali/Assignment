@@ -2,6 +2,7 @@ from countCars import GenerateCarsCount
 from revenueCars import GenerateCarsRevenue
 from distribution import DistributionEuropeanCountries
 import pandas as pd
+import time
 
 class Main:
 
@@ -25,5 +26,8 @@ class Main:
 
 if __name__ == '__main__':
     main = Main()
+    start_time = time.time()
     main.run()
+    end_time = time.time()
+    print("Time taken: ", end_time - start_time)
 
